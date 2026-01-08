@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | GYM Gimnasio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, 
+      sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+
+    /* caja naranja*/
+    header {
+  background-color: #ff8c00; /* franja naranja corporativa */
+  padding: 30px 40px;
+  display: flex;
+  flex-wrap: wrap;/* responsiva */                /* activa layout horizontal */
+  gap: 8px;
+  justify-content: center;
+  justify-content: space-between;/* separa izquierda y derecha */
+  align-items: center;           /* centra verticalmente */
+}
+    .titulo { /* titulo GYM*/
+      font-size: 42px;
+      font-weight: bold;
+      color: rgb(78, 67, 67);/* color titulo GYM*/
+      margin-left: 10%;
+      display: inline-flex;
+  flex-wrap: wrap;      /* permite cambiar de línea cuando no hay espacio */
+  align-items: center;
+  gap: 4px;             /* separación entre GYM y gimnasio */
+    }
+
+    .titulo span {/*titulo Gimnasio*/
+      display: line;
+      font-size: 18px;
+      font-weight: normal;
+      white-space: nowrap;
+    }
+
+    /* ====== FRANJA BLANCA (NAV) SE AJUSTA AL CONTENIDO ====== */
+nav {
+  background: white;
+  padding: 3px 10px;     /* se ajusta al tamaño de los botones */
+  border-radius: 20px;
+  display: inline-flex;  /* ancho según botones */
+  flex-wrap: wrap;   /* responsiva */
+  justify-content: center;
+  gap: 3px; /* espacio entre botones */
+  margin-bottom: 0;
+  margin-top: 2;  /* elimina centrado automático */
+  
+}
+
+/* ====== BOTONES DEL NAV EN FILA ====== */
+nav a {
+  display: inline-block; /* botones en línea */
+  width: auto;           /* ya no fuerza ancho */
+  padding: 5px 12px;
+  background-color: #ff8c00;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  
+}
+    nav a:hover{
+     background-color: #72503b;
+    }
+    nav a:active {
+  background-color: #c5beba;
+  transform: scale(0.97);
+}
+    /* FOOTER */
+    footer {
+      margin-top: 40px;
+      padding: 15px;
+      background-color: #d0c8c8;
+      text-align: center;
+      font-size: 13px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="titulo">
+      GYM
+      <span>gimnasio</span>
+    </div>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Servicios</a>
+      <a href="#">Planes</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
+  
+</body>
+</html>

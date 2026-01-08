@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>servlethappysystem</title>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Formulario -->
+  <div id="formulario"></div>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(html => document.getElementById("header").innerHTML = html);
+
+    fetch("formulario.html")
+      .then(res => res.text())
+      .then(html => document.getElementById("formulario").innerHTML = html);
+
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(html => document.getElementById("footer").innerHTML = html);
+  </script>
+
+</body>
+</html>
+
