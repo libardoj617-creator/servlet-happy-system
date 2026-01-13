@@ -6,88 +6,90 @@ package com.mycompany.servlethappysystem;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author HP
- */
-@WebServlet(name = "IngresarServlet", urlPatterns = {"/IngresarServlet"})
+@WebServlet("/IngresarServlet")
 public class IngresarServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet IngresarServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet IngresarServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        // Recibir parámetros del formulario
+
+        response.setContentType("text/html;charset=UTF-8");
+
         String usuario = request.getParameter("usuario");
         String password = request.getParameter("password");
+        String modo = request.getParameter("modo"); // "login" o "register"
 
-        // Lógica de prueba: validar contra valores fijos
-        if("Jose".equals(usuario) && "1234".equals(password)) {
-            response.getWriter().println("Login correcto. Bienvenido " + usuario);
-        } else {
-            response.getWriter().println("Usuario o contraseña incorrectos.");
+        try (PrintWriter out = response.getWriter()) {
+            // Obtener el DataSource desde JNDI
+            Context initContext = new InitialContext();
+            DataSource ds = (DataSource) initContext.lookup("java:comp/env/jdbc/bdhappysystem");
+
+            try (Connection conn = ds.getConnection()) {
+
+                if ("login".equals(modo)) {
+                    // 🔑 Lógica de inicio de sesión
+                    String sql = "SELECT * FROM usuarios WHERE nombre=? AND password=?";
+                    PreparedStatement ps = conn.prepareStatement(sql);
+                    ps.setString(1, usuario);
+                    ps.setString(2, password);
+                    ResultSet rs = ps.executeQuery();
+
+                    if (rs.next()) {
+                        out.println("<h1>Login correcto. Bienvenido " + usuario + "</h1>");
+                    } else {
+                        out.println("<h1>Usuario o contraseña incorrectos</h1>");
+                    }
+
+                } else if ("register".equals(modo)) {
+                    // 🔑 Lógica de registro
+                    // Primero verificar si el usuario ya existe
+                    String checkSql = "SELECT * FROM usuarios WHERE nombre=?";
+                    PreparedStatement checkPs = conn.prepareStatement(checkSql);
+                    checkPs.setString(1, usuario);
+                    ResultSet checkRs = checkPs.executeQuery();
+
+                    if (checkRs.next()) {
+                        out.println("<h1>El usuario ya existe, elige otro nombre</h1>");
+                    } else {
+                        String insertSql = "INSERT INTO usuarios (nombre, password) VALUES (?, ?)";
+                        PreparedStatement insertPs = conn.prepareStatement(insertSql);
+                        insertPs.setString(1, usuario);
+                        insertPs.setString(2, password);
+                        insertPs.executeUpdate();
+
+                        out.println("<h1>Registro exitoso para " + usuario + "</h1>");
+                    }
+
+                } else {
+                    out.println("<h1>Modo desconocido</h1>");
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace(response.getWriter());
         }
     }
 
     @Override
     public String getServletInfo() {
-        return "Servlet de ingreso de usuarios";
+        return "Servlet de ingreso de usuarios con validación vía DataSource JNDI";
     }
 }
+
+
+
+
 

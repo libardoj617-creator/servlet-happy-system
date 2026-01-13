@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | GYM Gimnasio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial;
+    }
+
+    body {
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+
+    /* LOGIN CARD */
+    main {/*centra el formulario*/
+      display: flex;
+      justify-content: center;
+      margin-top: -10px;
+    }
+
+    .formulario {/*formulario*/
+      background: white;
+      padding: 30px;
+      width: 380px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .formulario h2 {
+      color: #ff8c00;
+      margin-bottom: 10px;
+    }
+
+    .formulario p {/*stilo titulo servidor sin conexion*/
+      color: #777;
+      font-size: 14px;
+    }
+
+    .botones-ini {/*boton usuario*/
+      display: flex;
+      margin: 20px 2;
+    }
+
+    .botones-ini div {/*estilo botones iniciar seccion*/
+  flex: 1;
+  display: flex;
+  padding: 6px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* efecto al presionar el boton */
+.botones-ini div:active {
+  background-color: #757575;
+  transform: scale(0.97);
+}
+
+.botones-ini .active {/*estilo boton iniciar seccion*/
+  background-color: #ff8c00; /*colo naranja en boton activo*/
+  color: white;
+}
+
+.botones-ini .inactive {/*botom registrarse*/
+  background-color: #ddd; /*color gris en boton desactivado */
+  color: black;
+}
+    form input {
+      width: 100%;
+      padding: 9px;
+      margin: 10px 0;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+    }
+
+    form button {/*botom ingresar*/
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      background-color: #ff8c00;
+      color: white;
+      border: 3px solid #ca9271;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    form button:hover{
+      background-color: #eb9461;
+  
+    }
+    /* Al pasar el mouse */
+    form button:active{
+      transform: scale(0.97);}
+    /* Efecto al hacer clic */
+    .extra-buttons button:active {
+  background-color: #757575;
+  transform: scale(0.97);
+}
+
+    .extra-buttons button {
+      margin-top: 10px;
+    }
+    .extra-buttons button:hover {
+  background-color: #bdbdbd;  /* más oscuro */
+}
+
+   
+  </style>
+</head>
+
+<body>
+
+
+  <main>
+    <div class="formulario">
+      <h2>Servicio de Autenticació</h2>
+      <p>Servidor sin conexión</p>
+
+      <div class="botones-ini">
+        <div id="loginBtn" class="active">Iniciar sesión</div>
+        <div id="registerBtn" class="inactive">Registrarse</div>
+      </div>
+      
+      
+
+
+
+      <form action="IngresarServlet" method="post">
+        <input type="text" name="usuario" placeholder="Usuario" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Ingresar</button>
+      </form>
+
+      <div class="extra-buttons">
+        <button>Borrar Cliente</button>
+        <button>Lista de Clientes</button>
+      </div>
+    </div>
+  </main>
+<script>
+  const loginBtn = document.getElementById("loginBtn");
+  const registerBtn = document.getElementById("registerBtn");
+
+  function toggleActive(selected, other) {
+    selected.classList.add("active");
+    selected.classList.remove("inactive");
+
+    other.classList.add("inactive");
+    other.classList.remove("active");
+  }
+
+  loginBtn.addEventListener("click", () => {
+    toggleActive(loginBtn, registerBtn);
+  });
+
+  registerBtn.addEventListener("click", () => {
+    toggleActive(registerBtn, loginBtn);
+  });
+</script>
+  
+</body>
+</html>

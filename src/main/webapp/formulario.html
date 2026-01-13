@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Login | GYM Gimnasio</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -14,7 +15,9 @@
       background-color: #f2f2f2;
     }
 
-    /* LOGIN CARD */
+    /* ===============================
+       CONTENEDOR PRINCIPAL
+       =============================== */
     main {/*centra el formulario*/
       display: flex;
       justify-content: center;
@@ -40,9 +43,13 @@
       font-size: 14px;
     }
 
-    .botones-ini {/*boton usuario*/
+    /* ===============================
+       BOTONES INICIAR / REGISTRARSE
+       =============================== */
+    .botones-ini {/*contenedor botones usuario*/
       display: flex;
-      margin: 20px 2;
+      margin: 20px 0;
+      gap: 5px; /* separación entre botones */
     }
 
     .botones-ini div {/*estilo botones iniciar seccion*/
@@ -53,22 +60,29 @@
       font-weight: bold;
       text-align: center;
       justify-content: center;
+      cursor: pointer;
+      user-select: none; /* evita seleccionar texto al hacer click */
+      transition: background-color 0.3s, transform 0.1s; /* animación suave */
     }
-    .botones-ini button:active {
-  background-color: #757575;
-  transform: scale(0.97);
-}
+
+    /* efecto al presionar el boton */
+    .botones-ini div:active {
+      transform: scale(0.97);
+    }
 
     .botones-ini .active {/*estilo boton iniciar seccion*/
-      background-color: #ff8c00;
+      background-color: #ff8c00; /*color naranja en boton activo*/
       color: white;
     }
 
-    .botones-ini .inactive {/*botom registrarse*/
-      background-color: #ddd;
-      
+    .botones-ini .inactive {/*boton registrarse*/
+      background-color: #ddd; /*color gris en boton desactivado */
+      color: black;
     }
 
+    /* ===============================
+       FORMULARIO LOGIN
+       =============================== */
     form input {
       width: 100%;
       padding: 9px;
@@ -77,7 +91,7 @@
       border: 1px solid #ccc;
     }
 
-    form button {/*botom ingresar*/
+    form button {/*boton ingresar*/
       width: 100%;
       padding: 8px;
       margin-top: 10px;
@@ -88,49 +102,58 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      transition: transform 0.1s;
     }
-    form button:hover{
-      background-color: #eb9461;
-  
-    }
-    /* Al pasar el mouse */
-    form button:active{
-      transform: scale(0.97);}
-    /* Efecto al hacer clic */
-    .extra-buttons button:active {
-  background-color: #757575;
-  transform: scale(0.97);
-}
 
+    form button:hover {
+      background-color: #eb9461;
+    }
+
+    /* Efecto al hacer clic */
+    form button:active {
+      transform: scale(0.97);
+    }
+
+    /* ===============================
+       BOTONES EXTRA
+       =============================== */
     .extra-buttons button {
       margin-top: 10px;
     }
-    .extra-buttons button:hover {
-  background-color: #bdbdbd;  /* más oscuro */
-}
 
-   
+    .extra-buttons button:hover {
+      background-color: #bdbdbd; /* más oscuro */
+    }
+
+    .extra-buttons button:active {
+      background-color: #757575;
+      transform: scale(0.97);
+    }
   </style>
 </head>
-<body>
 
+<body>
 
   <main>
     <div class="formulario">
       <h2>Servicio de Autenticación</h2>
       <p>Servidor sin conexión</p>
 
+      <!-- Botones de selección de modo -->
       <div class="botones-ini">
-        <div class="active">Iniciar sesión</div>
-        <div class="inactive">Registrarse</div>
+        <div id="loginBtn" class="active">Iniciar sesión</div>
+        <div id="registerBtn" class="inactive">Registrarse</div>
       </div>
 
+      <!-- Formulario de inicio de sesión -->
       <form action="IngresarServlet" method="post">
+        <input type="hidden" name="modo" id="modo" value="login"> <!-- linea de prueba -->
         <input type="text" name="usuario" placeholder="Usuario" required>
         <input type="password" name="password" placeholder="Contraseña" required>
         <button type="submit">Ingresar</button>
       </form>
 
+      <!-- Botones administrativos -->
       <div class="extra-buttons">
         <button>Borrar Cliente</button>
         <button>Lista de Clientes</button>
@@ -138,6 +161,36 @@
     </div>
   </main>
 
-  
+  <!-- ===============================
+       SCRIPT DE CAMBIO DE ESTADO
+       =============================== -->
+  <script>
+    // Referencias a los botones
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const modoInput = document.getElementById("modo"); // referencia al input hidden
+
+    // Función que activa un botón y desactiva el otro
+    function toggleActive(selected, other, modoValue) {
+      selected.classList.add("active");
+      selected.classList.remove("inactive");
+
+      other.classList.add("inactive");
+      other.classList.remove("active");
+
+      modoInput.value = modoValue; // actualiza el valor que se enviará al servlet
+    }
+
+    // Evento click en "Iniciar sesión"
+    loginBtn.addEventListener("click", () => {
+      toggleActive(loginBtn, registerBtn, "login");
+    });
+
+    // Evento click en "Registrarse"
+    registerBtn.addEventListener("click", () => {
+      toggleActive(registerBtn, loginBtn, "register");
+    });
+  </script>
+
 </body>
 </html>

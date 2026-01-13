@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>servlethappysystem</title>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Formulario -->
+  <div id="formulario"></div>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    // Cargar HEADER
+    fetch("header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header").innerHTML = html;
+      });
+
+    // Cargar FORMULARIO
+    fetch("formulario.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("formulario").innerHTML = html;
+
+ // 🔑 Aquí ya está el formulario en el DOM,
+        // ahora sí puedes enganchar el script de alternar botones
+        const script = document.createElement("script");
+        script.src = "formulario.js"; // tu lógica de alternar botones
+        document.body.appendChild(script);
+      });
+      
+    // Cargar FOOTER
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("footer").innerHTML = html;
+      });
+  </script>
+
+</body>
+</html>
+
+
