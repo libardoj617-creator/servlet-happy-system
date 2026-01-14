@@ -1,50 +1,219 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>servlethappysystem</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Login | GYM Gimnasio</title>
 
-  <!-- Header -->
-  <div id="header"></div>
+        <style>
+            * {
+                box-sizing: border-box;
+                font-family: Arial;
+            }
 
-  <!-- Formulario -->
-  <div id="formulario"></div>
+            body {
+                margin: 0;
+                background-color: #f2f2f2;
+            }
 
-  <!-- Footer -->
-  <div id="footer"></div>
+            /* ===============================
+               CONTENEDOR PRINCIPAL
+               =============================== */
+            main {/*centra el formulario*/
+                display: flex;
+                justify-content: center;
+                margin-top: -10px;
+            }
 
-  <script>
-    // Cargar HEADER
-    fetch("header.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("header").innerHTML = html;
-      });
+            .formulario {/*formulario*/
+                background: white;
+                padding: 30px;
+                width: 380px;
+                border-radius: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                text-align: center;
+            }
 
-    // Cargar FORMULARIO
-    fetch("formulario.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("formulario").innerHTML = html;
+            .formulario h2 {
+                color: #ff8c00;
+                margin-bottom: 10px;
+            }
 
- // 🔑 Aquí ya está el formulario en el DOM,
-        // ahora sí puedes enganchar el script de alternar botones
-        const script = document.createElement("script");
-        script.src = "formulario.js"; // tu lógica de alternar botones
-        document.body.appendChild(script);
-      });
-      
-    // Cargar FOOTER
-    fetch("footer.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("footer").innerHTML = html;
-      });
-  </script>
+            .formulario p {/*stilo titulo servidor sin conexion*/
+                color: #777;
+                font-size: 14px;
+            }
 
-</body>
+            /* ===============================
+               BOTONES INICIAR / REGISTRARSE
+               =============================== */
+            .botones-ini {/*contenedor botones usuario*/
+                display: flex;
+                margin: 20px 0;
+                gap: 5px; /* separación entre botones */
+            }
+
+            .botones-ini div {/*estilo botones iniciar seccion*/
+                flex: 1;
+                display: flex;
+                padding: 6px;
+                border-radius: 20px;
+                font-weight: bold;
+                text-align: center;
+                justify-content: center;
+                cursor: pointer;
+                user-select: none; /* evita seleccionar texto al hacer click */
+                transition: background-color 0.3s, transform 0.1s; /* animación suave */
+            }
+
+            /* efecto al presionar el boton */
+            .botones-ini div:active {
+                transform: scale(0.97);
+            }
+
+            .botones-ini .active {/*estilo boton iniciar seccion*/
+                background-color: #ff8c00; /*color naranja en boton activo*/
+                color: white;
+            }
+
+            .botones-ini .inactive {/*boton registrarse*/
+                background-color: #ddd; /*color gris en boton desactivado */
+                color: black;
+            }
+
+            /* ===============================
+               FORMULARIO LOGIN
+               =============================== */
+            form input {
+                width: 100%;
+                padding: 9px;
+                margin: 10px 0;
+                border-radius: 20px;
+                border: 1px solid #ccc;
+            }
+
+            form button {/*boton ingresar*/
+                width: 100%;
+                padding: 8px;
+                margin-top: 10px;
+                background-color: #ff8c00;
+                color: white;
+                border: 3px solid #ca9271;
+                border-radius: 25px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: transform 0.1s;
+            }
+
+            form button:hover {
+                background-color: #eb9461;
+            }
+
+            /* Efecto al hacer clic */
+            form button:active {
+                transform: scale(0.97);
+            }
+
+            /* ===============================
+               BOTONES EXTRA
+               =============================== */
+            .extra-buttons button {
+                margin-top: 10px;
+            }
+
+            .extra-buttons button:hover {
+                background-color: #bdbdbd; /* más oscuro */
+            }
+
+            .extra-buttons button:active {
+                background-color: #757575;
+                transform: scale(0.97);
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Header -->
+        <div id="header"></div>
+
+        <main>
+            <div class="formulario">
+                <h2>Servicio de Autenticación</h2>
+                <p>Servidor sin conexión</p>
+
+                <!-- Botones de selección de modo -->
+                <div class="botones-ini">
+                    <div id="loginBtn" class="active">Iniciar sesión</div>
+                    <div id="registerBtn" class="inactive">Registrarse</div>
+                </div>
+
+                <!-- Formulario de inicio de sesión -->
+                <form action="IngresarServlet" method="post">
+                    <!-- linea que guarda el estado del boton -->
+                    <input type="hidden" name="modo" id="modo" value="login">
+                    <!-- texto visible -->
+                    <input type="text" name="usuario" placeholder="Usuario" required>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <button type="submit">Ingresar</button>
+                </form>
+
+                <!-- Botones administrativos -->
+                <div class="extra-buttons">
+                    <button>Borrar Cliente</button>
+                    <button>Lista de Clientes</button>
+                </div>
+                <!--   Botón borrar usuario -->                
+                <form action="IngresarServlet" method="post">
+                    <input type="hidden" name="modo" value="delete">
+                    <input type="text" name="usuario" placeholder="Usuario a borrar" required>
+                    <button type="submit">Borrar Cliente</button>
+                </form>
+                
+                
+
+
+            </div>
+        </main>
+
+        <!-- ===============================
+             SCRIPT DE CAMBIO DE ESTADO
+             =============================== -->
+        <script>
+            // Cargar HEADER
+            fetch("header.html")
+                    .then(res => res.text())
+                    .then(html => {
+                        document.getElementById("header").innerHTML = html;
+                    });
+
+            // Referencias a los botones
+            const loginBtn = document.getElementById("loginBtn");
+            const registerBtn = document.getElementById("registerBtn");
+            const modoInput = document.getElementById("modo"); // referencia al input hidden
+
+            // Función que activa un botón y desactiva el otro
+            function toggleActive(selected, other, modoValue) {
+                selected.classList.add("active");
+                selected.classList.remove("inactive");
+
+                other.classList.add("inactive");
+                other.classList.remove("active");
+
+                modoInput.value = modoValue; // actualiza el valor que se enviará al servlet
+            }
+
+            // Evento click en "Iniciar sesión"
+            loginBtn.addEventListener("click", () => {
+                toggleActive(loginBtn, registerBtn, "login");
+            });
+
+            // Evento click en "Registrarse"
+            registerBtn.addEventListener("click", () => {
+                toggleActive(registerBtn, loginBtn, "register");
+            });
+        </script>
+
+    </body>
 </html>
 
 

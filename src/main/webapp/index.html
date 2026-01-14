@@ -66,8 +66,7 @@
             }
 
             /* efecto al presionar el boton */
-            .botones-ini div:active {
-                transform: scale(0.97);
+            .botones-ini div:active { transform: scale(0.97);
             }
 
             .botones-ini .active {/*estilo boton iniciar seccion*/
@@ -110,15 +109,13 @@
             }
 
             /* Efecto al hacer clic */
-            form button:active {
-                transform: scale(0.97);
+            form button:active { transform: scale(0.97);
             }
 
             /* ===============================
                BOTONES EXTRA
                =============================== */
-            .extra-buttons button {
-                margin-top: 10px;
+            .extra-buttons button { margin-top: 10px;
             }
 
             .extra-buttons button:hover {
@@ -129,6 +126,46 @@
                 background-color: #757575;
                 transform: scale(0.97);
             }
+            /* Botón confirmar borrar */
+#btnConfirmar {
+    background-color: #f28b82; /* rojo claro */
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+#btnConfirmar:hover {
+    background-color: #e57373;
+}
+
+#btnConfirmar:active {
+    transform: scale(0.97);
+}
+
+/* Input redondeado */
+#usuarioBorrar {
+    width: 100%;
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-top: 4px;
+}
+
+
+            .input-wrap {
+    display: none; margin-top: 10px;text-align: left;
+}
+
+.input-wrap.show { display: block;
+}
+
+.input-wrap label {
+    font-size: 14px; margin-bottom: 4px; display: block;
+}
         </style>
     </head>
 
@@ -137,41 +174,49 @@
         <div id="header"></div>
 
         <main>
-            <div class="formulario">
-                <h2>Servicio de Autenticación</h2>
-                <p>Servidor sin conexión</p>
+    <div class="formulario">
+        <h2>Servicio de Autenticación</h2>
+        <p>Servidor sin conexión</p>
 
-                <!-- Botones de selección de modo -->
-                <div class="botones-ini">
-                    <div id="loginBtn" class="active">Iniciar sesión</div>
-                    <div id="registerBtn" class="inactive">Registrarse</div>
-                </div>
+        <!-- Botones de selección de modo -->
+        <div class="botones-ini">
+            <div id="loginBtn" class="active">Iniciar sesión</div>
+            <div id="registerBtn" class="inactive">Registrarse</div>
+        </div>
 
-                <!-- Formulario de inicio de sesión -->
-                <form action="IngresarServlet" method="post">
-                    <!-- linea que guarda el estado del boton -->
-                    <input type="hidden" name="modo" id="modo" value="login">
-                    <!-- texto visible -->
-                    <input type="text" name="usuario" placeholder="Usuario" required>
-                    <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit">Ingresar</button>
-                </form>
+        <!-- Formulario de inicio de sesión -->
+        <form action="IngresarServlet" method="post">
+            <!-- linea que guarda el estado del boton -->
+            <input type="hidden" name="modo" id="modo" value="login">
+            <!-- texto visible -->
+            <input type="text" name="usuario" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
 
-                <!-- Botones administrativos -->
-                <div class="extra-buttons">
-                    <button>Borrar Cliente</button>
-                    <button>Lista de Clientes</button>
-                </div>
-<!--                 Botón borrar usuario 
-                <form action="IngresarServlet" method="post">
-                    <input type="hidden" name="modo" value="delete">
-                    <input type="text" name="usuario" placeholder="Usuario a borrar" required>
-                    <button type="submit">Borrar Cliente</button>
-                </form>-->
+        <!-- Botones administrativos -->
+        <div class="extra-buttons">
+            <button type="button" id="btnBorrar">Borrar Cliente</button>
+            <button type="button">Lista de Clientes</button>
+        </div>
 
+        <!-- Formulario para borrar cliente (oculto al inicio) -->
+        <div id="inputWrap" class="input-wrap">
+            <form action="IngresarServlet" method="post">
+                <input type="hidden" name="modo" value="delete">
 
-            </div>
-        </main>
+                <label for="usuarioBorrar">Usuario a borrar</label>
+                <input type="text" id="usuarioBorrar" name="usuarioBorrar"
+                       placeholder="Usuario a borrar" required>
+
+                <button type="submit" id="btnConfirmar">
+                    Confirmar borrar cliente
+                </button>
+            </form>
+        </div>
+
+    </div>
+</main>
 
         <!-- ===============================
              SCRIPT DE CAMBIO DE ESTADO
@@ -209,6 +254,23 @@
             registerBtn.addEventListener("click", () => {
                 toggleActive(registerBtn, loginBtn, "register");
             });
+            const btnBorrar = document.getElementById("btnBorrar");
+            const inputWrap = document.getElementById("inputWrap");
+            const inputBorrar = document.getElementById("usuarioBorrar");
+            const btnConfirmar = document.getElementById("btnConfirmar");
+
+            btnBorrar.addEventListener("click", () => {
+            inputWrap.classList.toggle("show");
+        if (inputWrap.classList.contains("show")) {
+            inputBorrar.focus();
+        }
+        });
+        // Confirmar borrado
+        btnConfirmar.addEventListener("click", () => {
+            alert("Cliente a borrar: " + inputBorrar.value);
+            // aquí luego conectas con el Servlet
+        });
+        
         </script>
 
     </body>

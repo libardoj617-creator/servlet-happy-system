@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/IngresarServlet")
 public class IngresarServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -73,11 +74,27 @@ public class IngresarServlet extends HttpServlet {
                         out.println("<h1>Registro exitoso para " + usuario + "</h1>");
                     }
 
+                } else if ("delete".equals(modo)) {
+                    // 🔥 Lógica de borrado 
+                    String usuarioBorrar = request.getParameter("usuarioBorrar");
+
+                    String deleteSql = "DELETE FROM usuarios WHERE nombre=?";
+                    PreparedStatement deletePs = conn.prepareStatement(deleteSql);
+                    deletePs.setString(1, usuarioBorrar);
+                    int rows = deletePs.executeUpdate();
+
+                    if (rows > 0) {
+                        out.println("<h1>Usuario " + usuarioBorrar + " eliminado correctamente</h1>");
+                    } else {
+                        out.println("<h1>No se encontró el usuario " + usuarioBorrar + "</h1>");
+                    }
+
                 } else {
                     out.println("<h1>Modo desconocido</h1>");
                 }
 
             }
+
         } catch (Exception e) {
             e.printStackTrace(response.getWriter());
         }
@@ -85,11 +102,6 @@ public class IngresarServlet extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Servlet de ingreso de usuarios con validación vía DataSource JNDI";
+        return "Servlet de ingreso, registro y borrado de usuarios";
     }
 }
-
-
-
-
-
