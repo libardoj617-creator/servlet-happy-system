@@ -166,6 +166,12 @@
 .input-wrap label {
     font-size: 14px; margin-bottom: 4px; display: block;
 }
+
+#listaClientes {
+      display: none; /* Oculta la lista al inicio */
+      margin-top: 10px;
+    }
+
         </style>
     </head>
 
@@ -175,7 +181,7 @@
 
         <main>
     <div class="formulario">
-        <h2>Servicio de Autenticación</h2>
+        <h2>Servicio de Autentica</h2>
         <p>Servidor sin conexión</p>
 
         <!-- Botones de selección de modo -->
@@ -197,8 +203,18 @@
         <!-- Botones administrativos -->
         <div class="extra-buttons">
             <button type="button" id="btnBorrar">Borrar Cliente</button>
-            <button type="button">Lista de Clientes</button>
+            <button type="button" id="btnListaClientes">Lista de Clientes</button>
         </div>
+        <!-- Lista -->
+        <ul id="listaClientes">
+            <li>Cliente 1</li>
+            <li>Cliente 2</li>
+            <li>Cliente 3</li>
+        </ul>
+
+
+        
+        
 
         <!-- Formulario para borrar cliente (oculto al inicio) -->
         <div id="inputWrap" class="input-wrap">
@@ -245,19 +261,26 @@
                 modoInput.value = modoValue; // actualiza el valor que se enviará al servlet
             }
 
-            // Evento click en "Iniciar sesión"
+            // 1 Evento click en "Iniciar sesión"
             loginBtn.addEventListener("click", () => {
                 toggleActive(loginBtn, registerBtn, "login");
+                ocultarBorrado();
             });
 
-            // Evento click en "Registrarse"
+            // 1 Evento click en "Registrarse"
             registerBtn.addEventListener("click", () => {
                 toggleActive(registerBtn, loginBtn, "register");
+                ocultarBorrado();
             });
+            
             const btnBorrar = document.getElementById("btnBorrar");
             const inputWrap = document.getElementById("inputWrap");
             const inputBorrar = document.getElementById("usuarioBorrar");
             const btnConfirmar = document.getElementById("btnConfirmar");
+            const btnLista = document.getElementById("btnListaClientes");
+            const lista = document.getElementById("listaClientes");
+
+
 
             btnBorrar.addEventListener("click", () => {
             inputWrap.classList.toggle("show");
@@ -265,12 +288,42 @@
             inputBorrar.focus();
         }
         });
-        // Confirmar borrado
-        btnConfirmar.addEventListener("click", () => {
-            alert("Cliente a borrar: " + inputBorrar.value);
-            // aquí luego conectas con el Servlet
-        });
-        
+        // oculta input borrar-cliente
+//        function ocultarBorrado() {
+//    inputWrap.classList.remove("show");
+//    inputBorrar.value = "";
+//}
+
+const usuarioLogin = document.querySelector('input[name="usuario"]');
+const passwordLogin = document.querySelector('input[name="password"]');
+
+function ocultarBorrado() {
+    inputWrap.classList.remove("show");
+    inputBorrar.value = "";
+}
+
+// Al seleccionar el input usuario
+usuarioLogin.addEventListener("focus", ocultarBorrado);
+
+// Al seleccionar el input contraseña
+passwordLogin.addEventListener("focus", ocultarBorrado);
+
+    // Función que oculta el input de borrado
+    // Evento del botón "Lista de Clientes"
+    btnLista.addEventListener("click", () => {
+      // Alterna entre mostrar y ocultar la lista
+      if (lista.style.display === "none") {
+        lista.style.display = "block";
+      } else {
+        lista.style.display = "none";
+      }
+
+      // Activa la función ocultarBorrado
+      ocultarBorrado();
+    });
+
+
+       
         </script>
 
     </body>

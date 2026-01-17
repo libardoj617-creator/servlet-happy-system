@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/servlethappysystem">
-
-    <Resource name="jdbc/bdhappysystem"
-              auth="Container"
-              type="javax.sql.DataSource"
-              maxTotal="20"
-              maxIdle="10"
-              maxWaitMillis="-1"
-              username="root"
-              password="1234"
-              driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/bdhappysystem"/>
+  <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/bdhappysystem" password="1234" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/bdhappysystem" username="root"/>
 </Context>
-
-
