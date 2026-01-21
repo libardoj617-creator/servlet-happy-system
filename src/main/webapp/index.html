@@ -181,8 +181,8 @@
 
         <main>
     <div class="formulario">
-        <h2>Servicio de Autentica</h2>
-        <p>Servidor sin conexión</p>
+        <h2>Servicio de Autenticación</h2>
+<!--        <p>Servidor sin conexión</p>-->
 
         <!-- Botones de selección de modo -->
         <div class="botones-ini">
@@ -203,19 +203,14 @@
         <!-- Botones administrativos -->
         <div class="extra-buttons">
             <button type="button" id="btnBorrar">Borrar Cliente</button>
-            <button type="button" id="btnListaClientes">Lista de Clientes</button>
+            <button type="button"
+            onclick="window.location.href='ListaClientesServlet'">
+            Lista de Clientes
+        </button>
         </div>
         <!-- Lista -->
-        <ul id="listaClientes">
-            <li>Cliente 1</li>
-            <li>Cliente 2</li>
-            <li>Cliente 3</li>
-        </ul>
-
-
         
-        
-
+      
         <!-- Formulario para borrar cliente (oculto al inicio) -->
         <div id="inputWrap" class="input-wrap">
             <form action="IngresarServlet" method="post">
@@ -230,9 +225,11 @@
                 </button>
             </form>
         </div>
+        
 
     </div>
 </main>
+        <div id="footer"></div>
 
         <!-- ===============================
              SCRIPT DE CAMBIO DE ESTADO
@@ -243,6 +240,13 @@
                     .then(res => res.text())
                     .then(html => {
                         document.getElementById("header").innerHTML = html;
+                    });
+                    
+                    // Cargar HEADER
+            fetch("footer.html")
+                    .then(res => res.text())
+                    .then(html => {
+                        document.getElementById("footer").innerHTML = html;
                     });
 
             // Referencias a los botones
@@ -321,11 +325,8 @@ passwordLogin.addEventListener("focus", ocultarBorrado);
       // Activa la función ocultarBorrado
       ocultarBorrado();
     });
-
-
        
         </script>
-
     </body>
 </html>
 
