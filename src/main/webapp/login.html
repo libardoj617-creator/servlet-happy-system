@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login | GYM Gimnasio</title>
+
+        <style>
+            * {
+                box-sizing: border-box;
+                font-family: Arial;
+            }
+
+            body {
+                margin: 0;
+                background-color: #f2f2f2;
+            }
+
+            /* ===============================
+               CONTENEDOR PRINCIPAL
+               =============================== */
+            main {/*centra el formulario*/
+                display: flex;
+                justify-content: center;
+                margin-top: -10px;
+            }
+
+            .formulario {/*formulario*/
+                background: white;
+                padding: 30px;
+                width: 380px;
+                border-radius: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                text-align: center;
+            }
+
+            .formulario h2 {
+                color: #ff8c00;
+                margin-bottom: 10px;
+            }
+
+            .formulario p {/*stilo titulo servidor sin conexion*/
+                color: #777;
+                font-size: 14px;
+            }
+
+            /* ===============================
+               BOTONES INICIAR / REGISTRARSE
+               =============================== */
+            .botones-ini {/*contenedor botones usuario*/
+                display: flex;
+                margin: 20px 0;
+                gap: 5px; /* separación entre botones */
+            }
+
+            .botones-ini div {/*estilo botones iniciar seccion*/
+                flex: 1;
+                display: flex;
+                padding: 6px;
+                border-radius: 20px;
+                font-weight: bold;
+                text-align: center;
+                justify-content: center;
+                cursor: pointer;
+                user-select: none; /* evita seleccionar texto al hacer click */
+                transition: background-color 0.3s, transform 0.1s; /* animación suave */
+            }
+
+            /* efecto al presionar el boton */
+            .botones-ini div:active { transform: scale(0.97);
+            }
+
+            .botones-ini .active {/*estilo boton iniciar seccion*/
+                background-color: #ff8c00; /*color naranja en boton activo*/
+                color: white;
+            }
+
+            .botones-ini .inactive {/*boton registrarse*/
+                background-color: #ddd; /*color gris en boton desactivado */
+                color: black;
+            }
+
+            /* ===============================
+               FORMULARIO LOGIN
+               =============================== */
+            form input {
+                width: 100%;
+                padding: 9px;
+                margin: 10px 0;
+                border-radius: 20px;
+                border: 1px solid #ccc;
+            }
+
+            form button {/*boton ingresar*/
+                width: 100%;
+                padding: 8px;
+                margin-top: 10px;
+                background-color: #ff8c00;
+                color: white;
+                border: 3px solid #ca9271;
+                border-radius: 25px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: transform 0.1s;
+            }
+
+            form button:hover {
+                background-color: #eb9461;
+            }
+
+            /* Efecto al hacer clic */
+            form button:active { transform: scale(0.97);
+            }
+
+            /* ===============================
+               BOTONES EXTRA
+               =============================== */
+            .extra-buttons button { margin-top: 10px;
+            }
+
+            .extra-buttons button:hover {
+                background-color: #bdbdbd; /* más oscuro */
+            }
+
+            .extra-buttons button:active {
+                background-color: #757575;
+                transform: scale(0.97);
+            }
+            /* Botón confirmar borrar */
+#btnConfirmar {
+    background-color: #f28b82; /* rojo claro */
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+#btnConfirmar:hover {
+    background-color: #e57373;
+}
+
+#btnConfirmar:active {
+    transform: scale(0.97);
+}
+
+/* Input redondeado */
+#usuarioBorrar {
+    width: 100%;
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-top: 4px;
+}
+
+
+            .input-wrap {
+    display: none; margin-top: 10px;text-align: left;
+}
+
+.input-wrap.show { display: block;
+}
+
+.input-wrap label {
+    font-size: 14px; margin-bottom: 4px; display: block;
+}
+
+#listaClientes {
+      display: none; /* Oculta la lista al inicio */
+      margin-top: 10px;
+    }
+     /* Cursor se convierte en brazo */
+body {
+  cursor: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'>\
+<text x='0' y='24' font-size='24'>💪</text>\
+</svg>") 0 0, auto;
+}
+    /* estilo de texto bienvenidos */
+h2 {
+  color: #ff8c00;
+  margin-bottom: 10px;
+}
+
+        </style>
+    </head>
+
+    <body>
+        <!-- Header -->
+        <div id="header"></div>
+
+        <main>
+    <div class="formulario">
+        <h2>Servicio de Autenticación</h2>
+<!--        <p>Servidor sin conexión</p>-->
+
+        <!-- Botones de selección de modo -->
+        <div class="botones-ini">
+            <div id="loginBtn" class="active">Iniciar sesión</div>
+            <div id="registerBtn" class="inactive">Registrarse</div>
+        </div>
+
+        <!-- Formulario de inicio de sesión -->
+        <form action="IngresarServlet" method="post">
+            <!-- linea que guarda el estado del boton -->
+            <input type="hidden" name="modo" id="modo" value="login">
+            <!-- texto visible -->
+            <input type="text" name="usuario" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <!-- Botones administrativos -->
+        <div class="extra-buttons">
+            <button type="button" id="btnBorrar">Borrar Cliente</button>
+            <button type="button"
+            onclick="window.location.href='ListaClientesServlet'">
+            Lista de Clientes
+        </button>
+        </div>
+        <!-- Lista -->
+        
+      
+        <!-- Formulario para borrar cliente (oculto al inicio) -->
+        <div id="inputWrap" class="input-wrap">
+            <form action="IngresarServlet" method="post">
+                <input type="hidden" name="modo" value="delete">
+
+                <label for="usuarioBorrar">Usuario a borrar</label>
+                <input type="text" id="usuarioBorrar" name="usuarioBorrar"
+                       placeholder="Usuario a borrar" required>
+
+                <button type="submit" id="btnConfirmar">
+                    Confirmar borrar cliente
+                </button>
+            </form>
+        </div>    
+    </div>
+            
+</main>
+        <main><h2>Bienvenido al Login GYM</h2></main>
+        <div id="footer"></div>
+
+        <!-- ===============================
+             SCRIPT DE CAMBIO DE ESTADO
+             =============================== -->
+        <script>
+            // Cargar HEADER
+            fetch("header.html")
+                    .then(res => res.text())
+                    .then(html => {
+                        document.getElementById("header").innerHTML = html;
+                    });
+                    
+                    // Cargar HEADER
+            fetch("footer.html")
+                    .then(res => res.text())
+                    .then(html => {
+                        document.getElementById("footer").innerHTML = html;
+                    });
+
+            // Referencias a los botones
+            const loginBtn = document.getElementById("loginBtn");
+            const registerBtn = document.getElementById("registerBtn");
+            const modoInput = document.getElementById("modo"); // referencia al input hidden
+
+            // Función que activa un botón y desactiva el otro
+            function toggleActive(selected, other, modoValue) {
+                selected.classList.add("active");
+                selected.classList.remove("inactive");
+
+                other.classList.add("inactive");
+                other.classList.remove("active");
+
+                modoInput.value = modoValue; // actualiza el valor que se enviará al servlet
+            }
+
+            // 1 Evento click en "Iniciar sesión"
+            loginBtn.addEventListener("click", () => {
+                toggleActive(loginBtn, registerBtn, "login");
+                ocultarBorrado();
+            });
+
+            // 1 Evento click en "Registrarse"
+            registerBtn.addEventListener("click", () => {
+                toggleActive(registerBtn, loginBtn, "register");
+                ocultarBorrado();
+            });
+            
+            const btnBorrar = document.getElementById("btnBorrar");
+            const inputWrap = document.getElementById("inputWrap");
+            const inputBorrar = document.getElementById("usuarioBorrar");
+            const btnConfirmar = document.getElementById("btnConfirmar");
+            const btnLista = document.getElementById("btnListaClientes");
+            const lista = document.getElementById("listaClientes");
+
+
+
+            btnBorrar.addEventListener("click", () => {
+            inputWrap.classList.toggle("show");
+        if (inputWrap.classList.contains("show")) {
+            inputBorrar.focus();
+        }
+        });
+        // oculta input borrar-cliente
+//        function ocultarBorrado() {
+//    inputWrap.classList.remove("show");
+//    inputBorrar.value = "";
+//}
+
+const usuarioLogin = document.querySelector('input[name="usuario"]');
+const passwordLogin = document.querySelector('input[name="password"]');
+
+function ocultarBorrado() {
+    inputWrap.classList.remove("show");
+    inputBorrar.value = "";
+}
+
+// Al seleccionar el input usuario
+usuarioLogin.addEventListener("focus", ocultarBorrado);
+
+// Al seleccionar el input contraseña
+passwordLogin.addEventListener("focus", ocultarBorrado);
+
+    // Función que oculta el input de borrado
+    // Evento del botón "Lista de Clientes"
+    btnLista.addEventListener("click", () => {
+      // Alterna entre mostrar y ocultar la lista
+      if (lista.style.display === "none") {
+        lista.style.display = "block";
+      } else {
+        lista.style.display = "none";
+      }
+
+      // Activa la función ocultarBorrado
+      ocultarBorrado();
+    });
+       
+        </script>
+    </body>
+</html>
+
