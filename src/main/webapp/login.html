@@ -33,15 +33,15 @@
                 text-align: center;
             }
 
-            .formulario h2 {
+/*            .formulario h2 {
                 color: #ff8c00;
                 margin-bottom: 10px;
             }
 
-            .formulario p {/*stilo titulo servidor sin conexion*/
+            .formulario p {stilo titulo servidor sin conexion
                 color: #777;
                 font-size: 14px;
-            }
+            }*/
 
             /* ===============================
                BOTONES INICIAR / REGISTRARSE
@@ -66,7 +66,8 @@
             }
 
             /* efecto al presionar el boton */
-            .botones-ini div:active { transform: scale(0.97);
+            .botones-ini div:active {
+                transform: scale(0.97);
             }
 
             .botones-ini .active {/*estilo boton iniciar seccion*/
@@ -109,13 +110,15 @@
             }
 
             /* Efecto al hacer clic */
-            form button:active { transform: scale(0.97);
+            form button:active {
+                transform: scale(0.97);
             }
 
             /* ===============================
                BOTONES EXTRA
                =============================== */
-            .extra-buttons button { margin-top: 10px;
+            .extra-buttons button {
+                margin-top: 10px;
             }
 
             .extra-buttons button:hover {
@@ -127,134 +130,163 @@
                 transform: scale(0.97);
             }
             /* Botón confirmar borrar */
-#btnConfirmar {
-    background-color: #f28b82; /* rojo claro */
-    border: none;
-    border-radius: 20px;
-    padding: 8px 14px;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 8px;
-}
+            #btnConfirmar {
+                background-color: #f28b82; /* rojo claro */
+                border: none;
+                border-radius: 20px;
+                padding: 8px 14px;
+                color: #fff;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: 8px;
+            }
+            #btnConfirmarEditar {
+                background-color: #64b5f6;
+                border: none;
+                border-radius: 20px;
+                padding: 8px;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+            }
 
-#btnConfirmar:hover {
-    background-color: #e57373;
-}
+            #btnConfirmar:hover {
+                background-color: #e57373;
+            }
 
-#btnConfirmar:active {
-    transform: scale(0.97);
-}
+            #btnConfirmar:active {
+                transform: scale(0.97);
+            }
 
-/* Input redondeado */
-#usuarioBorrar {
-    width: 100%;
-    padding: 8px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    margin-top: 4px;
-}
+            /* Input redondeado */
+            #usuarioBorrar {
+                width: 100%;
+                padding: 8px;
+                border-radius: 20px;
+                border: 1px solid #ccc;
+                margin-top: 4px;
+            }
 
 
             .input-wrap {
-    display: none; margin-top: 10px;text-align: left;
-}
+                display: none;
+                margin-top: 10px;
+                text-align: left;
+            }
 
-.input-wrap.show { display: block;
-}
+            .input-wrap.show {
+                display: block;
+            }
 
-.input-wrap label {
-    font-size: 14px; margin-bottom: 4px; display: block;
-}
+            .input-wrap label {
+                font-size: 14px;
+                margin-bottom: 4px;
+                display: block;
+            }
 
-#listaClientes {
-      display: none; /* Oculta la lista al inicio */
-      margin-top: 10px;
-    }
-     /* Cursor se convierte en brazo */
-body {
-  cursor: url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'>\
-<text x='0' y='24' font-size='24'>💪</text>\
-</svg>") 0 0, auto;
-}
-    /* estilo de texto bienvenidos */
-h2 {
-  color: #ff8c00;
-  margin-bottom: 10px;
-}
+            #listaClientes {
+                display: none; /* Oculta la lista al inicio */
+                margin-top: 10px;
+            }
+            /* Cursor se convierte en brazo */
+            body {
+                cursor: url("data:image/svg+xml;utf8,\
+                    <svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'>\
+                    <text x='0' y='24' font-size='24'>💪</text>\
+                    </svg>") 0 0, auto;
+            }
+            /* estilo de texto bienvenidos */
+            h2 {
+                color: #ff8c00;
+                margin-bottom: 10px;
+            }
 
         </style>
     </head>
 
     <body>
-        <!-- Header -->
+<!--         Header -->
         <div id="header"></div>
 
         <main>
-    <div class="formulario">
-        <h2>Servicio de Autenticación</h2>
-<!--        <p>Servidor sin conexión</p>-->
+            <div class="formulario">
+                <h2>Servicio de Autenticación</h2>
+                        
 
-        <!-- Botones de selección de modo -->
-        <div class="botones-ini">
-            <div id="loginBtn" class="active">Iniciar sesión</div>
-            <div id="registerBtn" class="inactive">Registrarse</div>
-        </div>
+<!--                 Botones de selección de modo -->
+                <div class="botones-ini">
+                    <div id="loginBtn" class="active">Iniciar sesión</div>
+                    <div id="registerBtn" class="inactive">Registrarse</div>
+                </div>
 
-        <!-- Formulario de inicio de sesión -->
-        <form action="IngresarServlet" method="post">
-            <!-- linea que guarda el estado del boton -->
-            <input type="hidden" name="modo" id="modo" value="login">
-            <!-- texto visible -->
-            <input type="text" name="usuario" placeholder="Usuario" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Ingresar</button>
-        </form>
+<!--                 Formulario de inicio de sesión -->
+                <form action="IngresarServlet" method="post">
+<!--                     linea que guarda el estado del boton -->
+                    <input type="hidden" name="modo" id="modo" value="login">
+<!--                     texto visible -->
+                    <input type="text" name="usuario" placeholder="Usuario" required>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <button type="submit">Ingresar</button>
+                </form>
 
-        <!-- Botones administrativos -->
-        <div class="extra-buttons">
-            <button type="button" id="btnBorrar">Borrar Cliente</button>
-            <button type="button"
-            onclick="window.location.href='ListaClientesServlet'">
-            Lista de Clientes
-        </button>
-        </div>
-        <!-- Lista -->
-        
-      
-        <!-- Formulario para borrar cliente (oculto al inicio) -->
-        <div id="inputWrap" class="input-wrap">
-            <form action="IngresarServlet" method="post">
-                <input type="hidden" name="modo" value="delete">
+<!--                 Botones administrativos -->
+                <div class="extra-buttons">
+                    <button type="button" id="btnBorrar">Borrar Cliente</button>
+                    
+                    <button type="button"
+                            onclick="window.location.href = 'ListaClientesServlet'">
+                        Lista de Clientes
+                    </button>
+                    <button type="button" id="btnEditar">Editar Cliente</button>
 
-                <label for="usuarioBorrar">Usuario a borrar</label>
-                <input type="text" id="usuarioBorrar" name="usuarioBorrar"
-                       placeholder="Usuario a borrar" required>
+                </div>
+<!--                 Lista -->
 
-                <button type="submit" id="btnConfirmar">
-                    Confirmar borrar cliente
-                </button>
-            </form>
-        </div>    
-    </div>
-            
-</main>
+<!--                 Formulario para borrar cliente (oculto al inicio) -->
+                <div id="inputWrap" class="input-wrap">
+                    <form action="IngresarServlet" method="post">
+                        <input type="hidden" name="modo" value="delete">
+
+                        <label for="usuarioBorrar">Usuario a borrar</label>
+                        <input type="text" id="usuarioBorrar" name="usuarioBorrar"
+                               placeholder="Usuario a borrar" required>
+
+                        <button type="submit" id="btnConfirmar">
+                            Confirmar borrar cliente
+                        </button>
+                    </form>
+                </div>
+<!--                 input de editar cliente (oculto al inicio) -->
+                <div id="editWrap" class="input-wrap">
+                    <form action="IngresarServlet" method="post">
+                        <input type="hidden" name="modo" value="edit">
+
+                        <label for="usuarioEditar">Usuario a editar</label>
+                        <input type="text" id="usuarioEditar" name="usuarioEditar" required>
+
+                        <button type="submit" id="btnConfirmarEditar">
+                            Confirmar editar cliente
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </main>
         <main><h2>Bienvenido al Login GYM</h2></main>
         <div id="footer"></div>
 
-        <!-- ===============================
+<!--         ===============================
              SCRIPT DE CAMBIO DE ESTADO
              =============================== -->
-        <script>
+       <!-- <script>
             // Cargar HEADER
             fetch("header.html")
                     .then(res => res.text())
                     .then(html => {
                         document.getElementById("header").innerHTML = html;
                     });
-                    
-                    // Cargar HEADER
+
+            // Cargar HEADER
             fetch("footer.html")
                     .then(res => res.text())
                     .then(html => {
@@ -288,7 +320,7 @@ h2 {
                 toggleActive(registerBtn, loginBtn, "register");
                 ocultarBorrado();
             });
-            
+
             const btnBorrar = document.getElementById("btnBorrar");
             const inputWrap = document.getElementById("inputWrap");
             const inputBorrar = document.getElementById("usuarioBorrar");
@@ -299,41 +331,136 @@ h2 {
 
 
             btnBorrar.addEventListener("click", () => {
-            inputWrap.classList.toggle("show");
+                inputWrap.classList.toggle("show");
+                if (inputWrap.classList.contains("show")) {
+                    inputBorrar.focus();
+                }
+            });
+            
+
+            const usuarioLogin = document.querySelector('input[name="usuario"]');
+            const passwordLogin = document.querySelector('input[name="password"]');
+
+            function ocultarBorrado() {
+                inputWrap.classList.remove("show");
+                inputBorrar.value = "";
+            }
+
+// Al seleccionar el input usuario
+            usuarioLogin.addEventListener("focus", ocultarBorrado);
+
+// Al seleccionar el input contraseña
+            passwordLogin.addEventListener("focus", ocultarBorrado);
+
+            // Función que oculta el input de borrado
+            // Evento del botón "Lista de Clientes"
+            btnLista.addEventListener("click", () => {
+                // Alterna entre mostrar y ocultar la lista
+                if (lista.style.display === "none") {
+                    lista.style.display = "block";
+                } else {
+                    lista.style.display = "none";
+                }
+
+                // Activa la función ocultarBorrado
+                ocultarBorrado();
+            });
+            const btnEditar = document.getElementById("btnEditar");
+            const editWrap = document.getElementById("editWrap");
+            const usuarioEditar = document.getElementById("usuarioEditar");
+
+            btnEditar.onclick = () => {
+        editWrap.classList.toggle("show");
+        inputWrap.classList.remove("show");
+    };
+
+        </script> -->
+       <script>
+    // ================= CARGA HEADER Y FOOTER =================
+    fetch("header.html")
+        .then(res => res.text())
+        .then(html => document.getElementById("header").innerHTML = html);
+
+    fetch("footer.html")
+        .then(res => res.text())
+        .then(html => document.getElementById("footer").innerHTML = html);
+
+    // ================= REFERENCIAS GENERALES =================
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const modoInput = document.getElementById("modo");
+
+    const btnBorrar = document.getElementById("btnBorrar");
+    const inputWrap = document.getElementById("inputWrap");
+    const inputBorrar = document.getElementById("usuarioBorrar");
+
+    const btnEditar = document.getElementById("btnEditar");
+    const editWrap = document.getElementById("editWrap");
+    const usuarioEditar = document.getElementById("usuarioEditar");
+
+    const usuarioLogin = document.querySelector('input[name="usuario"]');
+    const passwordLogin = document.querySelector('input[name="password"]');
+
+    // ================= FUNCIONES =================
+    function toggleActive(selected, other, modoValue) {
+        selected.classList.add("active");
+        selected.classList.remove("inactive");
+
+        other.classList.add("inactive");
+        other.classList.remove("active");
+
+        modoInput.value = modoValue;
+    }
+
+    function ocultarBorrado() {
+        inputWrap.classList.remove("show");
+        inputBorrar.value = "";
+    }
+
+    function ocultarEditar() {
+        editWrap.classList.remove("show");
+        usuarioEditar.value = "";
+    }
+
+    // ================= EVENTOS =================
+    loginBtn.addEventListener("click", () => {
+        toggleActive(loginBtn, registerBtn, "login");
+        ocultarBorrado();
+        ocultarEditar();
+    });
+
+    registerBtn.addEventListener("click", () => {
+        toggleActive(registerBtn, loginBtn, "register");
+        ocultarBorrado();
+        ocultarEditar();
+    });
+
+    btnBorrar.addEventListener("click", () => {
+        inputWrap.classList.toggle("show");
+        editWrap.classList.remove("show");
         if (inputWrap.classList.contains("show")) {
             inputBorrar.focus();
         }
-        });
-
-const usuarioLogin = document.querySelector('input[name="usuario"]');
-const passwordLogin = document.querySelector('input[name="password"]');
-
-function ocultarBorrado() {
-    inputWrap.classList.remove("show");
-    inputBorrar.value = "";
-}
-
-// Al seleccionar el input usuario
-usuarioLogin.addEventListener("focus", ocultarBorrado);
-
-// Al seleccionar el input contraseña
-passwordLogin.addEventListener("focus", ocultarBorrado);
-
-    // Función que oculta el input de borrado
-    // Evento del botón "Lista de Clientes"
-    btnLista.addEventListener("click", () => {
-      // Alterna entre mostrar y ocultar la lista
-      if (lista.style.display === "none") {
-        lista.style.display = "block";
-      } else {
-        lista.style.display = "none";
-      }
-
-      // Activa la función ocultarBorrado
-      ocultarBorrado();
     });
-       
-        </script>
+
+    btnEditar.addEventListener("click", () => {
+        editWrap.classList.toggle("show");
+        inputWrap.classList.remove("show");
+        if (editWrap.classList.contains("show")) {
+            usuarioEditar.focus();
+        }
+    });
+
+    usuarioLogin.addEventListener("focus", () => {
+        ocultarBorrado();
+        ocultarEditar();
+    });
+
+    passwordLogin.addEventListener("focus", () => {
+        ocultarBorrado();
+        ocultarEditar();
+    });
+</script>
     </body>
 </html>
 
