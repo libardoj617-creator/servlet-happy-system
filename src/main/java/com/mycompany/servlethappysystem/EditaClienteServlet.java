@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-@WebServlet("/EditaClienteServlet")
+@WebServlet(name = "EditaClienteServlet", urlPatterns = {"/EditaClienteServlet"})
 public class EditaClienteServlet extends HttpServlet {
 
     @Override
@@ -22,9 +22,8 @@ public class EditaClienteServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        String usuario = request.getParameter("usuario");
+        String nombreActual = request.getParameter("usuarioEditar");
         String nuevoNombre = request.getParameter("nuevoNombre");
-//        String nuevoEmail = request.getParameter("nuevoEmail");
 
         try (PrintWriter out = response.getWriter()) {
 
@@ -33,22 +32,22 @@ public class EditaClienteServlet extends HttpServlet {
 
             try (Connection conn = ds.getConnection()) {
 
-                String sql = "UPDATE cliente SET nombre=?, email=? WHERE usuario=?";
+                String sql = "UPDATE usuarios SET nombre=? WHERE nombre=?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, nuevoNombre);
-//                ps.setString(2, nuevoEmail);
-                ps.setString(3, usuario);
+                ps.setString(2, nombreActual);
 
                 int filas = ps.executeUpdate();
 
                 if (filas > 0) {
-                    out.println("<h3>Cliente editado correctamente</h3>");
+                    out.println("<h1>Usuario editado correctamente</h1>");
                 } else {
-                    out.println("<h3>No se encontró el cliente</h3>");
+                    out.println("<h1>No se encontró el usuario</h1>");
                 }
             }
+
         } catch (Exception e) {
-            throw new ServletException(e);
+            e.printStackTrace(response.getWriter());
         }
     }
 }

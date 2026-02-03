@@ -190,6 +190,9 @@
                 color: #ff8c00;
                 margin-bottom: 10px;
             }
+            .input-wrap {
+    display: none;
+}
 
         </style>
     </head>
@@ -248,12 +251,13 @@
                 </div>
 <!--                 input de editar cliente (oculto al inicio) -->
                 <div id="editWrap" class="input-wrap">
-                    <form action="IngresarServlet" method="post">
-                        <input type="hidden" name="modo" value="edit">
+                    <form action="EditaClienteServlet" method="post">
+                   
 
                         <label for="usuarioEditar">Usuario a editar</label>
                         <input type="text" id="usuarioEditar" name="usuarioEditar" required>
-                        <label for="usuarioEditar">Nuevo Nombre</label>
+                        
+                        <label for="nuevoNombre">Nuevo Nombre</label>
                         <input type="text" id="nuevoNombre" name="nuevoNombre" required>
 
                         <button type="submit" id="btnConfirmarEditar">
